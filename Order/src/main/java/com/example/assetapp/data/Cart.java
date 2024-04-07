@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 import java.util.Map;
 
-@Entity
+@Entity//
 @Table(name="cart")
 
 public class Cart {
@@ -49,6 +49,6 @@ public class Cart {
     public void setTotal(double total) {
         this.total = total;
     }
-
+    //table name annotation
 
 }
