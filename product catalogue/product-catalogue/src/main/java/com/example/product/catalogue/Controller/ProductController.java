@@ -10,6 +10,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
+
     @Autowired
     private ProductService productService;
 
@@ -17,20 +18,22 @@ public class ProductController {
     public List<Product> getAllProducts() {
         return productService.getAllProducts();
     }
-    @GetMapping("/{id}")
-    public Product getProductById(@PathVariable Long id) {
-        return productService.getProductById(id);
+
+    @GetMapping("/{name}")
+    public Product getProductByName(@PathVariable String name) {
+        return productService.getProductByName(name);
     }
-    @PostMapping
+    @PostMapping("create")
     public Product createProduct(@RequestBody Product product) {
         return productService.createProduct(product);
     }
-    @PutMapping("/{id}")
-    public Product updateProduct(@PathVariable Long id, @RequestBody Product product) {
-        return productService.updateProduct(id, product);
+    @PutMapping("/{name}")
+    public Product updateProduct(@PathVariable String name, @RequestBody Product product) {
+        return productService.updateProduct(name, product);
     }
-    @DeleteMapping("/{id}")
-    public void deleteProduct(@PathVariable Long id) {
-        productService.deleteProduct(id);
+
+    @DeleteMapping("/{name}")
+    public void deleteProduct(@PathVariable String name) {
+        productService.deleteProductByName(name);
     }
 }

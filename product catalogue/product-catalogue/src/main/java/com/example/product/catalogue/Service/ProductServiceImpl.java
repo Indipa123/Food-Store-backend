@@ -19,8 +19,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public  Product getProductById(Long id){
-        return productRepository.findById(id)
+    public  Product getProductByName(String name){
+        return productRepository.findByName(name)
                 .orElseThrow(()  -> new RuntimeException("Product not found"));
     }
     @Override
@@ -28,19 +28,17 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.save(product);
     }
     @Override
-    public Product updateProduct(Long id, Product product) {
-        if (!productRepository.existsById(id)) {
-            throw new RuntimeException("Product not found");
-        }
-        product.setId(id);
+    public Product updateProduct(String name, Product product) { // Changed method signature to use name instead of id
+        Product existingProduct = productRepository.findByName(name)
+                .orElseThrow(() -> new RuntimeException("Product not found"));
+        product.setId(existingProduct.getId());
         return productRepository.save(product);
     }
     @Override
-    public void deleteProduct(Long id) {
-        if (!productRepository.existsById(id)) {
-            throw new RuntimeException("Product not found");
-        }
-        productRepository.deleteById(id);
+    public void deleteProductByName(String name) { // Changed method signature to use name instead of id
+        Product existingProduct = productRepository.findByName(name)
+                .orElseThrow(() -> new RuntimeException("Product not found"));
+        productRepository.delete(existingProduct);
     }
 
 
